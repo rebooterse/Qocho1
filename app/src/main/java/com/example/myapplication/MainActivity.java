@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     ImageView bomb;
     int playerVector = 100;
     FrameLayout.LayoutParams lp;
-    ViewGroup.MarginLayoutParams lp1;
+    FrameLayout.LayoutParams lp1;
     View figure;
     View bombFragment;
     ImageView playerfigure;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         display = getWindowManager().getDefaultDisplay();
         bomb = findViewById(R.id.bomb);
         lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-        lp1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        lp1 = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         size = new Point();
         display.getSize(size);
         width = size.x;
@@ -54,7 +54,26 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void play(View view) {
         play.setVisibility(View.INVISIBLE);
         playerfigure.setVisibility(View.VISIBLE);
-        new ThredForBom();
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int xx = 5;
+                while (forBombSet){
+
+
+
+                    randomeBombeVector();
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -84,12 +103,18 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
      return false;
  }
- public void randomBomber(){
-//     randomNumber = random.nextInt(700);
-//     lp1.setMarginStart(randomNumber);
-//     bombFragment.setLayoutParams(lp1);
-//     bomb.setVisibility(View.VISIBLE);
+ public void randomeBombeVector (){
+     randomNumber = random.nextInt(width);
+     lp1.setMarginStart(randomNumber);
+     bombFragment.setLayoutParams(lp1);
+     bomb.setVisibility(View.VISIBLE);
+
+
+
  }
+
+
+
 }
 
 
